@@ -1,0 +1,1 @@
+Para migrar la base de datos, deberas instalar los componentes que requieren en Laravel, "composer update", luego "php artisan migrate", "php artisan seed".
