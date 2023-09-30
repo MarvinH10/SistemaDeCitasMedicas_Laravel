@@ -36,23 +36,23 @@ class BlogController extends Controller
         $primerBlog = Blog::latest()->first();
         if ($primerBlog) {
             $comments = $primerBlog->comments;
+            $userHasVisited = false;
+
+            if ($request->user()) {
+                $userHasVisited = $primerBlog->userViews->contains('user_id', $request->user()->id);
+            }
+
+            if (!$userHasVisited && $request->user()) {
+                $primerBlog->userViews()->create([
+                    'user_id' => $request->user()->id,
+                ]);
+            }
         } else {
             $comments = [];
+            $userHasVisited = false;
         }
         $detailBlogs = DetailBlog::all();
         $recentBlogs = Blog::latest()->take(5)->get();
-
-        $userHasVisited = false;
-
-        if ($request->user()) {
-            $userHasVisited = $primerBlog->userViews->contains('user_id', $request->user()->id);
-        }
-
-        if (!$userHasVisited && $request->user()) {
-            $primerBlog->userViews()->create([
-                'user_id' => $request->user()->id,
-            ]);
-        }
 
         return view('web.blogs.detail.index', compact('primerBlog', 'detailBlogs', 'comments', 'userHasVisited', 'recentBlogs'));
     }
