@@ -1,6 +1,21 @@
 @extends('layouts.panel')
 
 @section('content')
+    <!-- Form Bussqueda -->
+    <form action="{{ route('empleados.index')  }}" method="GET" class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+        <div class="form-group mb-0">
+            <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+                <input class="form-control" placeholder="Search" type="text" name="texto" value="{{ $texto  }}">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success btn-sm m-2">Buscar</button>
+        @if (!empty($texto))
+            <a href="{{ route('empleados.index') }}" class="btn btn-danger btn-sm">Limpiar</a>
+        @endif
+    </form>
     <div class="card shadow">
         <div class="card-header border-0">
           <div class="row align-items-center">
@@ -9,9 +24,11 @@
             </div>
             <div class="col text-right">
               <a href="{{ url('/empleados/create') }}" class="btn btn-sm btn-success">
-                <i class="fas fa-plus"></i> 
+                <i class="fas fa-plus"></i>
                  Nuevo empleado
               </a>
+              <div class="col text-right">
+              </div>
             </div>
           </div>
         </div>
@@ -37,6 +54,7 @@
               <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Correo</th>
+                <th scope="col">N° Celular|Teléfono</th>
                 <th scope="col">Opciones</th>
               </tr>
             </thead>
@@ -48,6 +66,9 @@
                         </th>
                         <td>
                             {{ $employer->email }}
+                        </td>
+                        <td>
+                            {{ $employer->phone }}
                         </td>
                         <td>
                             <form id="delete-form-{{ $employer->id }}" action="{{ url('/empleados/'.$employer->id) }}" method="POST">

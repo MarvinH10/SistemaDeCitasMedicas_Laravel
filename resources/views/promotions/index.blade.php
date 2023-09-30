@@ -29,11 +29,12 @@
             }, 3000);
           </script>
       @endif
-    </div>   
+    </div>
     <div class="table-responsive">
        <table class="table align-items-center table-flush">
         <thead class="thead-light">
           <tr>
+            <th scope="col">Imagen</th>
             <th scope="col">Nombre</th>
             <th scope="col">Descripción</th>
             <th scope="col">Precio</th>
@@ -43,6 +44,9 @@
         <tbody>
           @foreach ($promotions as $promotion)
           <tr>
+            <td>
+              <img class="img-promotions" src="{{ asset($promotion->image) }}">
+            </td>
             <th scope="row">
               {{ $promotion->name }}
             </th>
@@ -55,20 +59,26 @@
             </td>
             <td>
                 {{ $promotion->price }}
-              </td>
+            </td>
             <td>
-              <form action="{{ url('/promociones/'.$promotion->id) }}" method="POST">
+              <form action="{{ url('/promociones/'.$promotion->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                @method('DELETE')
-
-                <a href="{{ url('/promociones/'.$promotion->id.'/edit') }}" class="btn btn-sm btn-primary">
-                  <i class="fas fa-pencil-alt"></i>
-                   Editar
-                </a>
-                <button class="btn btn-sm btn-danger" type="submit">
-                  <i class="fas fa-trash"></i>
-                   Eliminar
-                </button>
+                @method('PUT')
+                @if ($promotion->estado)
+                    <a href="{{ url('/promociones/'.$promotion->id.'/edit') }}" class="btn btn-sm btn-primary">
+                        <i class="fas fa-pencil-alt"></i>
+                        Editar
+                    </a>
+                    <button class="btn btn-sm btn-danger" onclick="btnInactivatePromotion({{ $promotion->id }}, event)">
+                        <i class="fa-solid fa-power-off"></i>
+                        Desactivar
+                    </button>
+                @else
+                    <button class="btn btn-sm btn-success" onclick="btnReactivatePromotion({{ $promotion->id }}, event)">
+                        <i class="fas fa-undo"></i>
+                        Reactivar
+                    </button>
+                @endif
               </form>
             </td>
           </tr>
@@ -77,4 +87,5 @@
       </table>
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 @endsection

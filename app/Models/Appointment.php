@@ -18,14 +18,6 @@ class Appointment extends Model
     	'name',
         'dni',
         'edad',
-        'genero',
-        'religion',
-        'grade',
-        'civil_status',
-        'site_born',
-        'born_date',
-        'home',
-        'occupation',
         'phone'
     ];
 
@@ -72,14 +64,6 @@ class Appointment extends Model
             'name',
             'dni',
             'edad',
-            'genero',
-            'religion',
-            'grade',
-            'civil_status',
-            'site_born',
-            'born_date',
-            'home',
-            'occupation',
             'phone'
         ]);
 

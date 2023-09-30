@@ -11,18 +11,20 @@ class HorarioService implements HorarioServiceInterface
 {
     // Implementar métodos de la interfaz aquí
     public function isAvailableInterval($date, $employerId, Carbon $start) {
-        $exists = Appointment::where('employer_id', $employerId)
-                ->where('scheduled_date', $date)
-                ->where('scheduled_time', $start->format('H:i:s'))
-                ->exists();
+            $existingAppointments = Appointment::where('employer_id', $employerId)
+            ->where('scheduled_date', $date)
+            ->where('scheduled_time', $start->format('H:i:s'))
+            ->get();
 
-        return !$exists; // available if already none exists
+            return $existingAppointments->isEmpty();
     }
 
     public function getAvailableIntervals($date, $employerId)
     {
+        $day = $this->getDayFromDate($date);
+
         $horario = Horarios::where('active', true)
-            ->where('day', $this->getDayFromDate($date))
+            ->where('day', $day)
             ->where('user_id', $employerId)
             ->first([
                 'morning_start', 'morning_end',
@@ -55,9 +57,7 @@ class HorarioService implements HorarioServiceInterface
 	{
     	$dateCarbon = new Carbon($date);
 
-    	// dayofWeek
-    	// Carbon: 0 (sunday) - 6 (saturday)
-    	// WorkDay: 0 (monday) - 6 (sunday)
+    	// determinar de 0 a 6 a los dias de la semana Lun a Dom
     	$i = $dateCarbon->dayOfWeek;
     	$day = ($i==0 ? 6 : $i-1);
     	return $day;
@@ -65,14 +65,14 @@ class HorarioService implements HorarioServiceInterface
 
 	private function getIntervals($start, $end, $date, $employerId) {
 		$start = new Carbon($start);
-    	$end = new Carbon($end);
+        $end = new Carbon($end);
 
     	$intervals = [];
 
     	while ($start < $end) {
     		$interval = [];
 
-    		$interval['start']  = $start->format('g:i A');
+    		$interval['start'] = $start->format('g:i A');
 
             $available = $this->isAvailableInterval($date, $employerId, $start);
 

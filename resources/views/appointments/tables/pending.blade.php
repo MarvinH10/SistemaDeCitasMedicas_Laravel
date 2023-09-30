@@ -3,24 +3,24 @@
       <thead class="thead-light">
         <tr>
           <th scope="col">Promoción</th>
-          @if ($role == 'empleado')
-            <th scope="col">Paciente</th>
-          @endif
+          <th scope="col">Precio</th>
           <th scope="col">Fecha</th>
           <th scope="col">Hora</th>
-          <th scope="col">Género</th>
+          <th scope="col">Nombre Completo</th>
+          <th scope="col">Teléfono|Celular</th>
+          <th scope="col">¿Mayor de edad?</th>
           <th scope="col">Opciones</th>
         </tr>
       </thead>
       <tbody>
         @foreach ($pendingAppointments as $appointment)
         <tr>
-          <td>
+          <th scope="row">
             {{ $appointment->promotion->name }}
+          </th>
+          <td>
+            S/. {{ $appointment->promotion->price }}
           </td>
-          @if ($role == 'empleado')
-            <td>{{ $appointment->patient->name }}</td>
-          @endif
           <td>
             {{ $appointment->scheduled_date }}
           </td>
@@ -28,7 +28,13 @@
             {{ $appointment->scheduled_time_12 }}
           </td>
           <td>
-            {{ $appointment->genero }}
+            {{ $appointment->name }}
+          </td>
+          <td>
+            {{ $appointment->phone }}
+          </td>
+          <td>
+            {{ $appointment->edad }}
           </td>
           <td>
             @if ($role == 'admin')
@@ -49,12 +55,13 @@
               </form>
             @endif
 
-            <form action="{{ url('/miscitas/'.$appointment->id.'/cancel') }}"
+            <form action="{{ url('/miscitas/'.$appointment->id.'/delete') }}"
               method="POST" class="d-inline-block mx-2">
               @csrf
+              @method('DELETE')
               <button class="btn btn-sm btn-danger" type="submit"
                 data-toggle="tooltip" title="Cancelar cita">
-                <i class="fas fa-ban"></i>
+                <i class="fas fa-trash"></i>
               </button>
             </form>
           </td>

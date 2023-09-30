@@ -19,6 +19,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'image',
         'name',
         'email',
         'password',
@@ -110,5 +111,13 @@ class User extends Authenticatable
             // Manejar el error, por ejemplo, registrar en el registro de errores.
             return false;
         }
+    }
+
+    public function isAdmin(){
+        return $this->role === 'admin';
+    }
+
+    public function isEmpleado(){
+        return $this->role === 'empleado';
     }
 }

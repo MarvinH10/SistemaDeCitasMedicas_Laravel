@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use App\Models\User;
 use App\Models\Promotion;
+use App\Models\Blog;
 
 class HomeController extends Controller
 {
@@ -58,13 +59,15 @@ class HomeController extends Controller
             }
 
             return $counts;
-        }); // jue, vie -> [..., 1, 1, ...]
+        });
 
         $totalEmployers = User::where('role', 'empleado')->count();
         $totalPatients = User::where('role', 'paciente')->count();
         $totalPromotions = Promotion::count();
+        $totalBlogs = Blog::count();
+        $totalCitas = Appointment::where('status', 'Atendida')->count();
 
         // dd($appointmentsByDay);
-        return view('home', compact('appointmentsByDay', 'totalEmployers', 'totalPatients', 'totalPromotions'));
+        return view('home', compact('appointmentsByDay', 'totalEmployers', 'totalPatients', 'totalPromotions', 'totalBlogs', 'totalCitas'));
     }
 }

@@ -32,15 +32,7 @@ return new class extends Migration
 
             $table->string('name');
             $table->string('dni');
-            $table->integer('edad');
-            $table->string('genero');
-            $table->string('religion');
-            $table->string('grade');
-            $table->string('civil_status');
-            $table->string('site_born');
-            $table->date('born_date');
-            $table->string('home');
-            $table->string('occupation');
+            $table->string('edad');
             $table->string('phone');
 
             $table->timestamps();

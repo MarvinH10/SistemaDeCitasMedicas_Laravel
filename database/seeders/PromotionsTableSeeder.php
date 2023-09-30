@@ -15,7 +15,6 @@ class PromotionsTableSeeder extends Seeder
     public function run(): void
     {
         $promotions = [
-            'Ninguna',
     		'Paquete Obstetrico',
     		'Chequeo Integral',
     		'Control Mujer',
@@ -23,6 +22,7 @@ class PromotionsTableSeeder extends Seeder
     	];
     	foreach ($promotions as $promotionName) {
             Promotion::create([
+                'image' => 'img/storage/default_image.png',
                 'name' => $promotionName,
                 'description' => 'Simple descripción',
                 'price' => rand(50, 300)

@@ -1,0 +1,466 @@
+/********** Template CSS **********/
+:root {
+    --primary: #bc0754;
+    --secondary: #354F8E;
+    --light: #EFF5F9;
+    --dark: #1D2A4D;
+    --rosado: rgb(184, 0, 113);
+}
+
+.btn {
+    font-weight: 700;
+    transition: .5s;
+}
+
+.btn:hover {
+    -webkit-box-shadow: 0 8px 6px -6px #555555;
+    -moz-box-shadow: 0 8px 6px -6px #555555;
+    box-shadow: 0 8px 6px -6px #555555;
+}
+
+.btn-primary {
+    color: #FFFFFF;
+}
+
+.btn-square {
+    width: 36px;
+    height: 36px;
+}
+
+.btn-sm-square {
+    width: 28px;
+    height: 28px;
+}
+
+.btn-lg-square {
+    width: 46px;
+    height: 46px;
+}
+
+.btn-square,
+.btn-sm-square,
+.btn-lg-square {
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+}
+
+.back-to-top {
+    position: fixed;
+    display: none;
+    right: 30px;
+    bottom: 0;
+    border-radius: 50% 50% 0 0;
+    z-index: 99;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    font-family: 'Jost', sans-serif;
+    position: relative;
+    margin-left: 30px;
+    padding: 30px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--dark);
+    outline: none;
+    transition: .5s;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link.active {
+    color: var(--primary);
+}
+
+@media (min-width: 992px) {
+    .navbar-light .navbar-nav .nav-link::before {
+        position: absolute;
+        content: "";
+        width: 0;
+        height: 5px;
+        bottom: 0;
+        left: 50%;
+        background: var(--primary);
+        transition: .5s;
+    }
+
+    .navbar-light .navbar-nav .nav-link:hover::before,
+    .navbar-light .navbar-nav .nav-link.active::before {
+        width: 100%;
+        left: 0;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .navbar-light .navbar-nav .nav-link  {
+        margin-left: 0;
+        padding: 10px 0;
+    }
+}
+
+.hero-header {
+    background: url(../img/doc.png) top right no-repeat;
+    background-size: auto 110%;
+    background-position: center center;
+    background-position-x: right;
+
+}
+
+.service-item {
+    position: relative;
+    height: 350px;
+    padding: 0 30px;
+    transition: .5s;
+}
+
+.service-item .service-icon {
+    width: 150px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary);
+    border-radius: 50%;
+    transform: rotate(-14deg);
+}
+
+.service-item .service-icon i {
+    transform: rotate(15deg);
+}
+
+.service-item a.btn {
+    position: absolute;
+    width: 60px;
+    bottom: -48px;
+    left: 50%;
+    margin-left: -30px;
+    opacity: 0;
+}
+
+.service-item:hover a.btn {
+    bottom: -24px;
+    opacity: 1;
+}
+
+.price-carousel::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 50%;
+    bottom: 0;
+    left: 0;
+    background: var(--primary);
+    border-radius: 8px 8px 50% 50%;
+    z-index: -1;
+}
+
+.price-carousel .owl-nav {
+    margin-top: 35px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.price-carousel .owl-nav .owl-prev,
+.price-carousel .owl-nav .owl-next{
+    position: relative;
+    margin: 0 5px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    background: #FFFFFF;
+    font-size: 22px;
+    border-radius: 45px;
+    transition: .5s;
+}
+
+.price-carousel .owl-nav .owl-prev:hover,
+.price-carousel .owl-nav .owl-next:hover {
+    color: rgb(255, 88, 191);
+}
+
+@media (min-width: 576px) {
+    .team-item .row {
+        height: 350px;
+    }
+}
+
+.team-carousel .owl-nav {
+    position: absolute;
+    padding: 0 45px;
+    width: 100%;
+    height: 45px;
+    top: calc(50% - 22.5px);
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.team-carousel .owl-nav .owl-prev,
+.team-carousel .owl-nav .owl-next {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    background: var(--primary);
+    border-radius: 45px;
+    font-size: 22px;
+    transition: .5s;
+}
+
+.team-carousel .owl-nav .owl-prev:hover,
+.team-carousel .owl-nav .owl-next:hover {
+    background: var(--dark);
+}
+
+.testimonial-carousel .owl-dots {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.testimonial-carousel .owl-dot {
+    position: relative;
+    display: inline-block;
+    margin: 0 5px;
+    width: 20px;
+    height: 20px;
+    background: var(--light);
+    border: 2px solid var(--primary);
+    border-radius: 20px;
+    transition: .5s;
+}
+
+.testimonial-carousel .owl-dot.active {
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+}
+
+.testimonial-carousel .owl-item img {
+    width: 150px;
+    height: 150px;
+}
+
+/*LOGO DE LA EMPRESA*/
+.logoimg {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-decoration: none;
+  color: #333;
+  margin-bottom: -20px;
+  margin-top: -33px;
+}
+
+.imagenicono {
+  max-width: 30px;
+  height: auto;
+  margin-left: 50px;
+  margin-top: 5px;
+}
+
+.jyza {
+  font-size: 30px;
+  margin: -10px 0;
+  font-family: "Adam Script", cursive;
+  color: rgb(147, 28, 245);
+}
+
+.centrogine {
+  font-size: 9px;
+  margin: 8px 0;
+  font-weight: bold;
+  color: #bc0754;
+  margin-left: 50px;
+}
+
+.doctor {
+  font-size: 9px;
+  margin: -8px 0;
+  color: #bc0754;
+  margin-left: 50px;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+  .logoimg {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: -10px;
+    margin-top: -8px;
+  }
+
+  .imagenicono {
+    max-width: 20px;
+    margin-left: 30px;
+    margin-top: 3px;
+  }
+
+  .jyza {
+    font-size: 20px;
+    margin: -5px 0;
+  }
+
+  .centrogine {
+    font-size: 6px;
+    margin: 2px 0;
+    margin-left: 30px;
+  }
+
+  .doctor {
+    font-size: 5px;
+    margin: -1px 0;
+    margin-left: 30px;
+  }
+}
+
+.bright{
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+}
+
+.rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 40px;
+    cursor: pointer;
+    color: #ddd;
+}
+
+.rating input:checked ~ label,
+.rating input:checked ~ label ~ label {
+    color: #eed600;
+    text-shadow: 0 0 10px #ffe600;
+}
+
+.askhead{
+    background-color: #bc0754;
+}
+
+.iconface {
+    position: fixed;
+    display: flex;
+    margin-bottom: 50px;
+}
+.iconwhats {
+    position: fixed;
+    display: flex;
+    margin-top: 70px;
+}
+.iconinsta {
+    position: fixed;
+    display: flex;
+    margin-top: 140px;
+}
+
+.liredes {
+    list-style: none;
+    margin: 15px 15px;
+    cursor: pointer;
+}
+
+.liredes {
+    position: relative;
+    display: block;
+    height: 60px;
+    width: 60px;
+    background: white;
+    line-height: 60px;
+    text-align: center;
+    color: #666;
+    font-size: 3em;
+    border-radius: 50%;
+    transition: 0.5s;
+}
+
+.iconface li:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--color);
+    transform: scale(0.9);
+    z-index: -1;
+}
+.iconwhats li:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--color);
+    transform: scale(0.9);
+    z-index: -1;
+}
+.iconinsta li:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--color);
+    transform: scale(0.9);
+    z-index: -1;
+}
+
+.iconface li:hover:before {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px var(--color);
+}
+.iconwhats li:hover:before {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px var(--color);
+}
+.iconinsta li:hover:before {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px var(--color);
+}
+
+.iconface li:hover {
+    color: var(--color);
+    box-shadow: 0px 0px 2px var(--color);
+    text-shadow: 0 0 2px var(--color);
+}
+.iconwhats li:hover {
+    color: var(--color);
+    box-shadow: 0px 0px 2px var(--color);
+    text-shadow: 0 0 2px var(--color);
+}
+.iconinsta li:hover {
+    color: var(--color);
+    box-shadow: 0px 0px 2px var(--color);
+    text-shadow: 0 0 2px var(--color);
+}
+
+@media (max-width: 768px) {
+    .iconface, .iconwhats, .iconinsta {
+        position: static;
+        display: inline-block;
+        margin: 10px;
+    }
+    .liredes {
+        font-size: 2em;
+    }
+}

@@ -25,11 +25,23 @@
         @endforeach
       @endif
 
-      <form action="{{ url('promociones') }}" method="POST">
+      <form action="{{ url('promociones') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
+            <label>Imagen</label>
+            <div class="card border-primary">
+                <div class="card-body">
+                    <label for="image" id="icon-image" class="btn btn-primary"><i class="fas fa-image"></i></label>
+                    <span id="icon-cerrar"></span>
+                    <input id="image" class="d-none" type="file" name="image" onchange="preview(event)"><br>
+                    <input type="hidden" id="foto_actual" name="foto_actual">
+                    <img class="img-thumbnail" id="img-preview" style="display: none;">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
           <label for="name">Nombre de la promoción</label>
-          <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
+          <input type="text" name="name" class="form-control" value="{{ old('name') }}">
         </div>
         <div class="form-group">
           <label for="description">Descripción</label>

@@ -28,8 +28,7 @@
 
       @if ($role == 'patient')
       <p>
-        Estás a punto de cancelar tu cita reservada con el médico
-        {{ $appointment->employer->name }}
+        Estás a punto de cancelar tu cita reservada con el Dr. Jesús Caycho
         (promoción {{ $appointment->promotion->name }})
         para el día {{ $appointment->scheduled_date }}:
       </p>
@@ -45,7 +44,7 @@
       <p>
         Estás a punto de cancelar la cita reservada
         por el paciente {{ $appointment->patient->name }}
-        para ser atendido por el médico {{ $appointment->employer->name }}
+        para ser atendido por el Dr. Jesús Caycho
         (promoción {{ $appointment->promotion->name }})
         el día {{ $appointment->scheduled_date }}
         (hora {{ $appointment->scheduled_time_12 }}):

@@ -14,6 +14,7 @@ class UsersTableSeeder extends Seeder
     public function run(): void
     {
         User::create([
+            'image' => 'storage/perfil_default.jpg',
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
@@ -24,6 +25,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         User::create([
+            'image' => 'storage/perfil_default.jpg',
             'name' => 'Jhon',
             'email' => 'jhon@gmail.com',
             'email_verified_at' => now(),
@@ -34,6 +36,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         User::create([
+            'image' => 'storage/perfil_default.jpg',
             'name' => 'Luis',
             'email' => 'luis@gmail.com',
             'email_verified_at' => now(),

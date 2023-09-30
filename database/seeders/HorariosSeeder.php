@@ -17,14 +17,14 @@ class HorariosSeeder extends Seeder
         	Horarios::create([
         		'day' => $i,
 		        'active' => ($i==3), // Thursday
-		        
+
 		        'morning_start' => ($i==3 ? '08:00:00' : '08:00:00'),
 		        'morning_end' => ($i==3 ? '08:00:00' : '10:00:00'),
 
 		        'afternoon_start' => ($i==3 ? '14:00:00' : '17:00:00'),
 		        'afternoon_end' => ($i==3 ? '15:00:00' : '18:00:00'),
 
-		        'user_id' => 3 // Empleado Test (UsersTableSeeder)
+		        'user_id' => 2 // Empleado Test (UsersTableSeeder)
         	]);
         }
     }

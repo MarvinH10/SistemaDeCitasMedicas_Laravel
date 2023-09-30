@@ -5,16 +5,28 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class PatientController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $patients = User::patients()->paginate(10);
-        return view('patients.index', compact('patients'));
+        $texto = trim($request->get('texto'));
+        $query = DB::table('users')
+            ->select('id', 'name', 'email', 'address', 'phone')
+            ->where('role', 'paciente')
+            ->where(function ($query) use ($texto) {
+                $query->where('name', 'LIKE', '%' . $texto . '%')
+                    ->orWhere('email', 'LIKE', '%' . $texto . '%')
+                    ->orWhere('phone', 'LIKE', '%' . $texto . '%');
+            })
+            ->orderBy('created_at', 'desc');
+        $patients = $query->paginate(10);
+        //$patients = User::patients()->paginate(10);
+        return view('patients.index', compact('patients', 'texto'));
     }
 
     /**
@@ -103,7 +115,7 @@ class PatientController extends Controller
 
         if($password)
             $data['password'] = bcrypt($password);
-        
+
         $user->fill($data);
         $user->save();
 

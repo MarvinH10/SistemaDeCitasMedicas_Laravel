@@ -1,0 +1,47 @@
+/* Estilo para las opciones personalizadas al pasar el cursor */
+.seleccionar {
+    cursor: pointer;
+    background-color: #e549bb;
+    color: #fff;
+}
+
+.toast {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 9999;
+    font-weight: bold;
+}
+
+.warning {
+    background-color: #f1b602;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+.toast i {
+    margin-right: 10px;
+}
+
+
+/* Oculta las flechas de incremento y decremento en el campo numérico */
+#dni::-webkit-inner-spin-button,
+#phone::-webkit-inner-spin-button,
+#dni::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+#phone::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+#dni {
+  -moz-appearance: textfield;
+}
+#phone {
+    -moz-appearance: textfield;
+}

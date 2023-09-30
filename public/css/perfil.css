@@ -1,0 +1,59 @@
+.custom-centered {
+    margin: 0 auto;
+}
+
+.card-body-dark {
+    background-color: #333;
+    color: #fff;
+    margin-top: -30px;
+}
+
+.perfil {
+    background-attachment: fixed;
+    position: relative;
+    border-radius: 30px;
+    width: 400px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.boton-perfil {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    border: 0;
+    border-radius: 8px;
+    padding: 8px;
+    margin-right: 28%;
+    background-color: rgba(33, 197, 0, 0.82);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    box-shadow: 0 0 12px 8px rgba(0, 117, 29, 0.705);
+}
+
+.listar-datos{
+    list-style: none;
+    margin: 0;
+}
+
+@media (max-width: 1203px) {
+    .perfil {
+        width: 100%;
+    }
+    .card-body-dark {
+        background-color: #333;
+    }
+    .col-md-7.custom-centered {
+        margin-top: 20px;
+    }
+    .listar-datos {
+        margin: 0.5rem 0;
+    }
+    .boton-perfil {
+        top: 0.5rem;
+        right: 0.5rem;
+        margin-right: 2%;
+    }
+}

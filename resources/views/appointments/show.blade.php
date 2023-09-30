@@ -18,19 +18,20 @@
           <strong>Hora:</strong> {{ $appointment->scheduled_time_12 }}
         </li>
 
-        @if ($role == 'paciente' || $role == 'admin')
-          <li>
-            <strong>Paciente:</strong> {{ $appointment->patient->name }}
-          </li>
+        @if ($role == 'empleado' || $role == 'admin')
+            <li>
+                <strong>Paciente:</strong> {{ $appointment->patient->name }}
+            </li>
         @endif
 
         <li>
           <strong>Promoción:</strong> {{ $appointment->promotion->name }}
         </li>
-
-        <li>
-          <strong>Dirección:</strong> {{ $appointment->home }}
-        </li>
+        @if ($role == 'empleado' || $role == 'admin')
+            <li>
+                <strong>Dirección:</strong> {{ $appointment->patient->address }}
+            </li>
+        @endif
         <li>
           <strong>Estado:</strong>
           @if ($appointment->status == 'Cancelada')

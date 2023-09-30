@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\HorarioServiceInterface;
 use App\Models\Promotion;
-use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 
 use App\Models\Appointment;
@@ -60,36 +59,34 @@ class AppointmentController extends Controller
 
     public function create(HorarioServiceInterface $horarioService)
     {
-        // Obtener todas las promociones disponibles
         $promotions = Promotion::all();
-
-        // Verificar si hay un 'promotion_id' antiguo en la solicitud
         $promotionId = old('promotion_id');
 
         $horarios = Horarios::where('active', true)->get();
         $scheduledDate = old('scheduled_date', date('Y-m-d'));
 
+        $activePromotions = Promotion::where('estado', 1)->get();
+
         $intervals = [];
         foreach ($horarios as $horario) {
-            if ($horario->day == date('N')) {
+            if ($horario->day == date('N', strtotime($scheduledDate))) {
                 $intervals = array_merge($intervals, $horarioService->getAvailableIntervals($scheduledDate, $horario->user_id));
             }
         }
 
-        return view('appointments.create', compact('promotions', 'intervals', 'scheduledDate'));
+        return view('appointments.create', compact('promotions', 'intervals', 'scheduledDate', 'activePromotions'));
     }
 
     public function store(Request $request)
     {
         $user = auth()->user();
 
-        // Validar si es un empleado o un paciente
         if ($user->role == 'empleado') {
-            $employerId = $user->id; // Usar el ID del empleado autenticado
-            $patientId = null; // No se selecciona un paciente en este caso
+            $employerId = $user->id;
+            $patientId = null;
         } elseif ($user->role == 'paciente') {
-            $employerId = 2; // Valor predeterminado para administrador
-            $patientId = $user->id; // Usar el ID del paciente autenticado
+            $employerId = 2;
+            $patientId = $user->id;
         } else {
             $employerId = null;
             $patientId = null;
@@ -104,21 +101,11 @@ class AppointmentController extends Controller
             'name' => 'required',
             'dni' => 'required',
             'edad' => 'required',
-            'genero' => 'required',
-            'religion' => 'required',
-            'grade' => 'required',
-            'civil_status' => 'required',
-            'site_born' => 'required',
-            'born_date' => 'required',
-            'home' => 'required',
-            'occupation' => 'required',
             'phone' => 'required',
         ]);
 
-        $scheduledTime = Carbon::createFromFormat('g:i A', $validatedData['scheduled_time'])
-        ->format('H:i:s');
+        $scheduledTime = Carbon::createFromFormat('g:i A', $validatedData['scheduled_time'])->format('H:i:s');
 
-        // Asignar valores predeterminados si no se seleccionaron empleados o pacientes
         $validatedData['employer_id'] = $validatedData['employer_id'] ?? $employerId;
         $validatedData['patient_id'] = $validatedData['patient_id'] ?? $patientId;
         $validatedData['scheduled_time'] = $scheduledTime;
@@ -128,22 +115,21 @@ class AppointmentController extends Controller
             'scheduled_time' => $scheduledTime,
         ]);
 
-        // Crea una nueva cita con los datos validados
         $appointment = Appointment::create($validatedData);
         $appointment->promotion()->associate($request->input('promotion_id'));
         $appointment->save();
+
+        return redirect('/miscitas');
     }
 
     public function show($id)
     {
         //$role = auth()->user()->role;
-        $appointment = Appointment::find($id); // Busca la cita por ID
+        $appointment = Appointment::find($id);
         if (!$appointment) {
-            // Maneja el caso en que la cita no se encuentre
-            abort(404); // Por ejemplo, muestra una página 404
+            abort(404);
         }
-
-        $role = auth()->user()->role; // Asegúrate de obtener el rol
+        $role = auth()->user()->role;
 
         return view('appointments.show', compact('appointment', 'role'));
     }
@@ -153,7 +139,6 @@ class AppointmentController extends Controller
         $appointment = Appointment::find($id);
 
         if (!$appointment) {
-            // Manejar el caso en el que no se encuentra la cita.
             return redirect('/miscitas')->with('error', 'La cita no se encontró.');
         }
 
@@ -190,6 +175,16 @@ class AppointmentController extends Controller
         return redirect('/miscitas')->with(compact('notification'));
     }
 
+    public function deleteAppointment(Appointment $appointment)
+    {
+        $cancel = $appointment->delete();
+        if ($cancel)
+            $appointment->patient->sendFCM('Su cita ha sido cancelada.');
+
+        $notification = 'La cita se ha cancelado correctamente.';
+        return redirect('/miscitas')->with(compact('notification'));
+    }
+
     public function showCancelForm(Appointment $appointment)
     {
         if ($appointment->status == 'Confirmada') {
@@ -198,5 +193,18 @@ class AppointmentController extends Controller
         }
 
         return redirect('/miscitas');
+    }
+
+    public function markAsAttended(Appointment $appointment)
+    {
+        if (!$appointment) {
+            return redirect('/miscitas')->with('error', 'La cita no se encontró.');
+        }
+
+        $appointment->status = 'Atendida';
+        $saved = $appointment->save();
+
+        $notification = 'La cita se ha marcado como atendida correctamente.';
+        return redirect('/miscitas')->with(compact('notification'));
     }
 }

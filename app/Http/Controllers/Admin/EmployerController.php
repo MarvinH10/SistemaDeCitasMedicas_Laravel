@@ -6,16 +6,28 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Models\Promotion;
+use Illuminate\Support\Facades\DB;
 
 class EmployerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employers = User::employers()->paginate(10);
-        return view('employers.index', compact('employers'));
+        $texto = trim($request->get('texto'));
+        $query = DB::table('users')
+            ->select('id', 'name', 'email', 'address', 'phone')
+            ->where('role', 'empleado')
+            ->where(function ($query) use ($texto) {
+                $query->where('name', 'LIKE', '%' . $texto . '%')
+                    ->orWhere('email', 'LIKE', '%' . $texto . '%');
+            })
+            ->orderBy('created_at', 'desc');
+        $employers = $query->paginate(10);
+
+        //$employers = User::employers()->paginate(10);
+        return view('employers.index', compact('employers', 'texto'));
     }
 
     /**

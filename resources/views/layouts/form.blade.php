@@ -23,8 +23,11 @@
     <!-- Navbar -->
     <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
       <div class="container px-4">
-        <a class="navbar-brand" href="{{ url('/') }}">
-          <img src="{{ asset('img/brand/white.png') }}" class="img-fluid" id="" style="width: 130px; height: auto;" />
+        <a class="logoimgwhite" href="/">
+            <img src="{{ url('img/brand/whiteimg.png') }}" class="imageniconowhite">
+            <h2 class="jyzawhite">𝓙𝔂𝔃𝓪</h2>
+            <h3 class="centroginewhite">CENTRO<br>GINECOLÓGICO</h3>
+            <h2 class="doctorwhite">Dr. Jesús Caycho</h2>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>

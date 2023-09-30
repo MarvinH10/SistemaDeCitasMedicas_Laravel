@@ -26,9 +26,25 @@
         </div>
       @endif
 
-      <form action="{{ url('promociones/'.$promotion->id) }}" method="POST">
+      <form action="{{ url('promociones/'.$promotion->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
+        <div class="form-group">
+            <label>Imagen</label>
+            <div class="card border-primary">
+                <div class="card-body">
+                    <label for="image" id="icon-image" class="btn btn-primary"><i class="fas fa-image"></i></label>
+                    <span id="icon-cerrar"></span>
+                    <input id="image" class="d-none" type="file" name="image" onchange="preview(event)"><br>
+                    <input type="hidden" id="foto_actual" name="foto_actual">
+                    @if($promotion->image)
+                        <img class="img-thumbnail" id="img-preview" src="{{ asset($promotion->image) }}">
+                    @else
+                        <img class="img-thumbnail" id="img-preview" style="display: none;">
+                    @endif
+                </div>
+            </div>
+        </div>
         <div class="form-group">
           <label for="name">Nombre del paquete</label>
           <input type="text" name="name" class="form-control" value="{{ old('name', $promotion->name) }}">
